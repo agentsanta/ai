@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SANTA AI AGENT Terminal</title>
+    <link href="https://fonts.cdnjs.com/css?family=Ubuntu+Mono" rel="stylesheet">
+    <style>
+        /* Previous styles remain the same */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background-color: #000;
+            color: #0f0;
+            font-family: 'Ubuntu Mono', monospace;
+            overflow: hidden;
+        }
+
+        #terminal {
+            padding: 20px;
+            height: 100vh;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+
+        .ascii-art {
+            color: #0f0;
+            white-space: pre;
+            font-size: 14px;
+            line-height: 14px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .title-art {
+            color: #0f0;
+            white-space: pre;
+            font-size: 14px;
+            line-height: 14px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .prompt {
+            color: #0f0;
+            margin-bottom: 10px;
+        }
+
+        .cursor {
+            background-color: #0f0;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        .input-line {
+            display: flex;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .input-prefix {
+            color: #0f0;
+            margin-right: 8px;
+        }
+
+        #user-input {
+            background: transparent;
+            border: none;
+            color: #0f0;
+            font-family: 'Ubuntu Mono', monospace;
+            font-size: 16px;
+            outline: none;
+            width: 100%;
+        }
+
+        .command-output {
+            color: #0f0;
+            margin-bottom: 15px;
+            line-height: 1.4;
+            font-size: 16px;
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #000;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #0f0;
+        }
+    </style>
+</head>
+<body>
+    <div id="terminal">
+        <div class="title-art">
+ ██████  ▄▄▄       ███▄    █ ▄▄▄█████▓ ▄▄▄      
+▒██    ▒ ▒████▄     ██ ▀█   █ ▓  ██▒ ▓▒▒████▄    
+░ ▓██▄   ▒██  ▀█▄  ▓██  ▀█ ██▒▒ ▓██░ ▒░▒██  ▀█▄  
+  ▒   ██▒░██▄▄▄▄██ ▓██▒  ▐▌██▒░ ▓██▓ ░ ░██▄▄▄▄██ 
+▒██████▒▒ ▓█   ▓██▒▒██░   ▓██░  ▒██▒ ░  ▓█   ▓██▒
+▒ ▒▓▒ ▒ ░ ▒▒   ▓▒█░░ ▒░   ▒ ▒   ▒ ░░    ▒▒   ▓▒█░
+░ ░▒  ░ ░  ▒   ▒▒ ░░ ░░   ░ ▒░    ░      ▒   ▒▒ ░
+░  ░  ░    ░   ▒      ░   ░ ░   ░        ░   ▒   
+      ░        ░  ░         ░                ░  ░
+
+ ▄▄▄       ▄████▄  ▓█████  ███▄    █ ▄▄▄█████▓
+▒████▄    ▒██▀ ▀█  ▓█   ▀  ██ ▀█   █ ▓  ██▒ ▓▒
+▒██  ▀█▄  ▒▓█    ▄ ▒███   ▓██  ▀█ ██▒▒ ▓██░ ▒░
+░██▄▄▄▄██ ▒▓▓▄ ▄██▒▒▓█  ▄ ▓██▒  ▐▌██▒░ ▓██▓ ░ 
+ ▓█   ▓██▒▒ ▓███▀ ░░▒████▒▒██░   ▓██░  ▒██▒ ░ 
+ ▒▒   ▓▒█░░ ░▒ ▒  ░░░ ▒░ ░░ ▒░   ▒ ▒   ▒ ░░   
+  ▒   ▒▒ ░  ░  ▒    ░ ░  ░░ ░░   ░ ▒░    ░    
+  ░   ▒   ░           ░      ░   ░ ░   ░      
+      ░  ░░ ░         ░  ░         ░          
+          ░                                    
+        </div>
+        <div class="ascii-art">
+                    ,---.
+                   /    |
+                  /     |
+                 /      |
+                /       |
+            ___,'      /
+          <   {      /
+           \   \    /
+            \   \  /
+             \   \/
+          .(___)`-'`.
+         (____      _)
+         (____) .-' )
+         (____).    )
+         (___)  `--'
+        /    \  \ |
+       /      \  \|
+      /________\  
+     (__________)
+        |    |
+        |    |
+     ___|____|___
+    [___________]
+    > AI SANTA <
+    ___________
+        </div>
+        <div class="command-output">Welcome to SANTA AI AGENT Terminal v1.0.0</div>
+        <div class="command-output">I am your AI Santa Assistant. Type 'help' for available commands.</div>
+        <div id="output"></div>
+        <div class="input-line">
+            <span class="input-prefix">SANTA-AI@Agent:~$</span>
+            <input type="text" id="user-input" autofocus>
+        </div>
+    </div>
+
+    <script>
+        // Previous JavaScript remains the same
+        const terminal = document.getElementById('terminal');
+        const userInput = document.getElementById('user-input');
+        const output = document.getElementById('output');
+
+        const commands = {
+            'help': 'Available commands:\n' +
+                   '- help: Show this help message\n' +
+                   '- about: About SANTA AI AGENT system\n' +
+                   '- gifts: Show gift recommendations\n' +
+                   '- schedule: Show Christmas schedule\n' +
+                   '- status: Show AI Santa status\n' +
+                   '- clear: Clear the terminal\n' +
+                   '- exit: Exit the terminal',
+            'about': 'SANTA AI AGENT - Smart Automated Noel Task Artificial Intelligence Agent\n' +
+                    'Version: 1.0.0\n' +
+                    'Created by: North Pole AI Development Team\n' +
+                    'Purpose: Spreading Christmas joy through advanced AI technology',
+            'gifts': 'AI Santa\'s Gift Recommendations:\n' +
+                    '1. Smart Christmas Tree Lights with AI voice control\n' +
+                    '2. AI-Powered Gift Wrapper Robot\n' +
+                    '3. Personalized AI Digital Christmas Cards\n' +
+                    '4. Smart Cookie Baker with AI recipe generation\n' +
+                    '5. AI Holiday Music Playlist Generator',
+            'schedule': 'AI Santa\'s Optimized Schedule:\n' +
+                       '24 Dec 18:00 - Automatic cookie preparation system activation\n' +
+                       '24 Dec 20:00 - AI-coordinated Christmas dinner\n' +
+                       '24 Dec 22:00 - AI-enhanced carol singing with harmonization\n' +
+                       '25 Dec 00:00 - Automated gift delivery system initialization\n' +
+                       '25 Dec 07:00 - Smart gift opening ceremony',
+            'status': 'AI Santa Status:\n' +
+                     'System: ONLINE\n' +
+                     'AI Core: ACTIVE\n' +
+                     'Christmas Spirit Level: 100%\n' +
+                     'Gift Database: UPDATED\n' +
+                     'Carol Database: LOADED\n' +
+                     'Cookie Recipes: OPTIMIZED',
+            'clear': 'clear',
+            'exit': 'AI Santa shutting down... Happy Holidays! 🎄'
+        };
+
+        userInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const command = userInput.value.toLowerCase().trim();
+                
+                const commandLine = document.createElement('div');
+                commandLine.innerHTML = `<span class="input-prefix">SANTA-AI@Agent:~$</span> ${userInput.value}`;
+                output.appendChild(commandLine);
+
+                if (commands.hasOwnProperty(command)) {
+                    if (command === 'clear') {
+                        output.innerHTML = '';
+                    } else if (command === 'exit') {
+                        const response = document.createElement('div');
+                        response.className = 'command-output';
+                        response.textContent = commands[command];
+                        output.appendChild(response);
+                        setTimeout(() => {
+                            window.close();
+                        }, 2000);
+                    } else {
+                        const response = document.createElement('div');
+                        response.className = 'command-output';
+                        response.textContent = commands[command];
+                        output.appendChild(response);
+                    }
+                } else if (command !== '') {
+                    const response = document.createElement('div');
+                    response.className = 'command-output';
+                    response.textContent = `Command not found: ${command}. Type 'help' for available commands.`;
+                    output.appendChild(response);
+                }
+
+                userInput.value = '';
+                terminal.scrollTop = terminal.scrollHeight;
+            }
+        });
+
+        document.addEventListener('click', function() {
+            userInput.focus();
+        });
+    </script>
+</body>
+</html>
